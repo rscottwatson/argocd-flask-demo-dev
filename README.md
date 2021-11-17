@@ -3,7 +3,7 @@
 This is a quick flask application with the intention of being deployed with argocd but this may be used for other things as well in the future.  This will print out a json message and accepts the following parameters
 
 * pctError - percentage of errors to return eg .5 50% should be errors
-* pctDelay - a time to wait during the requests between 0 and 4 seconds.
+* delay    - a time to wait during the requests between 0 and 4 seconds or use RANDOM.
 
 This app is obviously not production ready but rather just to server a purpose to build containers and introduce errors and delays.
   
@@ -20,11 +20,11 @@ Since I don't have docker desktop anymore, I used the following commands to buil
 
 ## Minikube
 eval $(minikube docker-env)
-docker build -t scottwatson/argocd-flask-demo-repo:0.0.2 .
+docker build -t scottwatson/argocd-flask-demo-repo:0.0.1 .
 
 Test it is working.
 
-docker run -d --name flask-demo -p 8123:8765 scottwatson/argocd-flask-demo-repo
+docker run -d --name flask-demo -p 8123:8000 scottwatson/argocd-flask-demo-repo:0.0.1
 export HOST=$(minikube ip); for i in {1..10}; do curl http://$HOST:8123; echo "";  done
 
 re-tag the image
